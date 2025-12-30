@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You</title>
+
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    background: #0b0b0f;
+    color: #eaeaea;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    text-align: center;
+    padding: 20px;
+  }
+
+  .card {
+    background: rgba(255,255,255,0.10);
+    border-radius: 22px;
+    padding: 28px;
+    max-width: 360px;
+    width: 100%;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+    z-index: 2;
+    position: relative;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+    margin-bottom: 12px;
+  }
+
+  p {
+    font-size: 1.05rem;
+    line-height: 1.55;
+    opacity: 0.9;
+  }
+
+  .countdown {
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    margin-top: 18px;
+    font-weight: bold;
+  }
+
+  button {
+    width: 100%;
+    padding: 14px;
+    margin-top: 18px;
+    font-size: 1.05rem;
+    border: none;
+    border-radius: 30px;
+    background: #ff6b81;
+    color: #0b0b0f;
+    cursor: pointer;
+    position: relative;
+  }
+
+  button.secondary {
+    background: #444;
+    color: #eee;
+  }
+
+  ul {
+    text-align: left;
+    padding-left: 20px;
+  }
+
+  /* ❤️ HEARTS */
+  .heart {
+    position: absolute;
+    font-size: 18px;
+    color: #ff6b81;
+    animation: floatUp 2.5s ease-out forwards;
+    pointer-events: none;
+  }
+
+  @keyframes floatUp {
+    0% { transform: scale(0) translateY(0); opacity: 1; }
+    100% { transform: scale(1.5) translateY(-120px); opacity: 0; }
+  }
+
+  /* 🖼️ PHOTO */
+  .photo {
+    width: 100%;
+    border-radius: 18px;
+    margin-top: 15px;
+    animation: fadeIn 2s ease forwards;
+    opacity: 0;
+  }
+
+  @keyframes fadeIn { to { opacity: 1; } }
+
+  /* Mobile friendly dodging */
+  @media (max-width: 600px) {
+    button { font-size: 1rem; padding: 12px; }
+  }
+</style>
+</head>
+
+<body>
+
+<audio id="bgMusic" src="kursunada.mp3"></audio>
+
+<div class="card" id="content">
+  <h1>Before anything else…</h1>
+  <p>
+    I’ve been feeling uneasy for a while now.<br>
+    I honestly didn’t know how to say this face to face.<br><br>
+    I’m nervous even writing this.
+  </p>
+  <p>
+    Please screen record everything you do here.<br>
+    I need to see your reaction after.
+  </p>
+
+  <h1 style="font-weight:normal;">⏳ Please wait</h1>
+  <p>This will open when I’m ready.</p>
+
+  <div class="countdown" id="countdown">00:00:00</div>
+</div>
+
+<script>
+const content = document.getElementById("content");
+const countdownEl = document.getElementById("countdown");
+const music = document.getElementById("bgMusic");
+
+// Unlock: Dec 30, 5:35 PM
+const unlockDate = new Date(new Date().getFullYear(), 11, 30, 18, 54, 0);
+
+let timer = setInterval(updateCountdown, 1000);
+updateCountdown();
+
+function updateCountdown() {
+  const now = new Date();
+  const diff = unlockDate - now;
+
+  if (diff <= 0) {
+    clearInterval(timer);
+    showRejection(); 
+    return;
+  }
+
+  const h = Math.floor(diff / 3600000);
+  const m = Math.floor((diff % 3600000) / 60000);
+  const s = Math.floor((diff % 60000) / 1000);
+
+  countdownEl.textContent =
+    String(h).padStart(2,'0') + ":" +
+    String(m).padStart(2,'0') + ":" +
+    String(s).padStart(2,'0');
+}
+
+/* 💔 REJECTION */
+function showRejection() {
+  content.innerHTML = `
+    <h1>I'm sorry…</h1>
+    <p>
+      I’ve been thinking about us a lot.<br>
+      And I don’t think things can keep going the way they are.<br><br>
+      Lately, I’ve felt distant and confused.<br>
+      I don’t want to pretend everything is okay.
+    </p>
+    <button onclick="showTwist()">Continue</button>
+  `;
+}
+
+/* 💡 TWIST */
+function showTwist() {
+  content.innerHTML = `
+    <h1>But here’s the truth…</h1>
+    <p>
+      The reason I feel this way is because<br>
+      I don’t want something unclear anymore.<br><br>
+      I don’t want “whatever this is.”<br>
+      I want something real.
+    </p>
+    <button onclick="showQuestion()">Keep reading</button>
+  `;
+}
+
+/* 💍 CONFESSION WITH UNCLICKABLE YES */
+function showQuestion() {
+  content.innerHTML = `
+    <h1>This is what I want.</h1>
+    <p>
+      I want you to court me properly.<br>
+      I want to start fresh this New Year.<br><br>
+      I want you to be my official boyfriend.
+    </p>
+    <p><strong>Will you do that?</strong></p>
+    <button id="yesBtn">Yes 💙</button>
+    <button class="secondary" onclick="forceYes()">No</button>
+  `;
+
+  const yesBtn = document.getElementById("yesBtn");
+
+  // Make the Yes button dodge on hover or touch (mobile friendly)
+  function moveYesButton() {
+    const x = Math.random() * 60 + 20;
+    const y = Math.random() * 60 + 20;
+    yesBtn.style.position = 'absolute';
+    yesBtn.style.left = x + "%";
+    yesBtn.style.top = y + "%";
+  }
+
+  yesBtn.addEventListener("mouseenter", moveYesButton);
+  yesBtn.addEventListener("touchstart", moveYesButton);
+
+  // Disable clicking the Yes button
+  yesBtn.addEventListener("click", (e) => e.preventDefault());
+}
+
+function forceYes() {
+  content.innerHTML = `
+    <h1>Nice try 😅</h1>
+    <p>
+      You really thought there was a way out?<br>
+      I already know your answer.
+    </p>
+    <button onclick="showContract()">Okay… Yes 💙</button>
+  `;
+}
+
+/* 📜 AGREEMENT */
+function showContract() {
+  content.innerHTML = `
+    <h1>📜 Agreement</h1>
+    <ul>
+      <li><strong>Start:</strong> December 30, 5:35 PM</li>
+      <li><strong>Status:</strong> Official Boyfriend 💙</li>
+      <li><strong>Includes:</strong> Love, effort, patience</li>
+      <li><strong>End Date:</strong> None</li>
+    </ul>
+    <p>Do you agree?</p>
+    <button onclick="finalMessage()">I Agree 💍</button>
+    <button class="secondary" onclick="forceAgree()">Disagree</button>
+  `;
+}
+
+function forceAgree() {
+  content.innerHTML = `
+    <h1>Denied 😌</h1>
+    <p>
+      Disagree button is just for decoration.<br>
+      Welcome to this new chapter.
+    </p>
+    <button onclick="finalMessage()">I Agree 💙</button>
+  `;
+}
+
+/* 💙 FINAL — ❤️ HEARTS + PHOTO + MUSIC */
+function finalMessage() {
+  content.innerHTML = `
+    <h1>💙 It’s Official 💙</h1>
+    <p>
+      Thank you for choosing me.<br><br>
+      Let’s start this year properly — together.
+    </p>
+    <img src="photo.jpg" class="photo">
+  `;
+  heartsFor(6000);
+  playMusic();
+}
+
+/* ❤️ HEART EFFECT */
+function heartsFor(duration) {
+  const interval = setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.top = "80vh";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 2500);
+  }, 300);
+
+  setTimeout(() => clearInterval(interval), duration);
+}
+
+/* 🎵 MUSIC AFTER AGREE */
+function playMusic() {
+  music.volume = 0;
+  music.play();
+  let v = 0;
+  const fade = setInterval(() => {
+    v += 0.05;
+    music.volume = Math.min(v, 1);
+    if (v >= 1) clearInterval(fade);
+  }, 200);
+}
+</script>
+
+</body>
+</html>
