@@ -208,29 +208,22 @@ ul {
     <div id="closeSecondLetter">✖</div>
     <p><strong>Hi, Jamir.</strong></p>
 
-    <p>
-      To be completely honest, the original plan was to send this to you exactly on January 1 (today), which is what’s happening now. But after our conversation yesterday, everything felt a little deeper and more real.
-    </p>
+    <p>To be completely honest, I had planned days ago to send this to you on January 1, to start the year with us being official. After our conversation yesterday, I almost thought about postponing it because the courting part felt a little short and uncertain. But the more I thought about it, the more I realized that today is the perfect time.</p>
 
-    <p>
-      When I asked if you were already courting me and after reading your reply, I realized something about myself. I felt shy and honestly a little disappointed, not in you but in me. I think it came from not being clear enough before or maybe from not saying yes right away when you asked me last December 21 if you could court me.
-    </p>
+    <p>When I asked if you were already courting me and read your reply, I realized something about myself. I felt shy and a little disappointed, not in you, but in me. I think it came from not being fully clear before, or from not saying yes right away when you asked last December 21 if you could court me.</p>
 
-    <p>
-      When I realized that things were still a bit unclear for both of us, at least when it came to the courting part, I almost postponed this until February (haha). I thought it might seem too fast to ask you to be my official boyfriend just right after finally confirming that you could start courting me, especially since that only became clear yesterday.
-    </p>
+    <p>I considered waiting until February because I worried it might feel too soon to ask you to be my official boyfriend right after starting the courting process. But then I realized that even though the courting time may seem short, we can still enjoy it together and continue getting to know each other while being official.</p>
 
-    <p>
-      But the truth is, throughout all the time we’ve been talking, your efforts, your actions, and even your words have made me feel secure and certain about you. I genuinely appreciate and feel so happy whenever you tell me that you talk about me or share me with your loved ones and friends. Thank you for making me feel valued, loved, and appreciated in that way.
-    </p>
+    <p>Throughout all the time we’ve been talking, your efforts, your actions, and your words have made me feel secure and certain about you. I truly appreciate it and feel so happy whenever you share about me with your loved ones and friends. Thank you for making me feel valued, loved, and appreciated in that way.</p>
 
-    <p>
-      I may not always be the best with words, but I want you to know how proud I am of you and how much happiness and love you bring into my life.
-    </p>
+    <p>I know words aren’t always my strongest way to show how I feel. Sometimes what I say might not fully capture my heart, or may even seem a little lacking. But I hope my actions speak for themselves, showing you just how much you mean to me and how deeply I care.</p>
 
-    <p>
-      As this new year begins, I want to make things official for both of us, not because I feel pressured or rushed, but because in my heart, I know I’m sure about you. I want this, I choose this, and I choose you.
-    </p>
+    <p>Some people might think you are the lucky one for having me, but honestly, to me, it feels the opposite. I know in myself that in so many ways I am lacking. Yet to have someone like you, so understanding, caring, thoughtful, and sweet, someone who accepts my imperfections and sees the beauty in me that I sometimes don’t see, already feels like the biggest gift this year could give. For that, I am always grateful, to have met you, to be with you, and to have you in my life.</p> 
+
+    <p>I promise to be more understanding and patient, and I will do my best to show and give you the love and care that you truly deserve. If ever my words or actions unintentionally hurt or offend you, please don’t be afraid to tell me directly or open up about it. With an open heart, I will listen and willingly strive to be a better version of myself for you.</p>
+
+    <p>As this new year begins, I want to make things official for both of us, not because I feel pressured or rushed, but because in my heart, I know I am sure about you. I want this, I choose this, and I choose you.</p>
+
 
     <img 
   src="photo19.jpg" 
@@ -251,13 +244,19 @@ const content = document.getElementById("content");
 const countdownEl = document.getElementById("countdown");
 const music = document.getElementById("bgMusic");
 
-// 🔹 Manila time countdown setup
+// 🔹 Manila time countdown setup (9:52 AM, Dec 31, 2025)
+function getManilaNow() {
+  const now = new Date();
+  const utc = now.getTime() + now.getTimezoneOffset() * 60000; // convert to UTC
+  return new Date(utc + 8*60*60000); // Manila is UTC+8
+}
+
 const unlockDate = new Date();
-unlockDate.setFullYear(new Date().getFullYear());
+unlockDate.setFullYear(2025);
 unlockDate.setMonth(11); // December
 unlockDate.setDate(31);  // 31st
-unlockDate.setHours(10);  // 9 AM Manila
-unlockDate.setMinutes(20); // open at 9:52
+unlockDate.setHours(11);  // 9 AM
+unlockDate.setMinutes(47); // 9:52 AM
 unlockDate.setSeconds(0);
 unlockDate.setMilliseconds(0);
 
@@ -265,7 +264,7 @@ let timer = setInterval(updateCountdown, 1000);
 updateCountdown();
 
 function updateCountdown() {
-  const now = new Date();
+  const now = getManilaNow(); // use Manila time
   const diff = unlockDate - now;
 
   if(diff <= 0){
@@ -283,7 +282,6 @@ function updateCountdown() {
     String(m).padStart(2,'0') + ":" +
     String(s).padStart(2,'0');
 }
-
 // 🔹 Everything else unchanged
 function showRejection() {
   content.innerHTML = `
