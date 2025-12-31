@@ -251,8 +251,16 @@ const content = document.getElementById("content");
 const countdownEl = document.getElementById("countdown");
 const music = document.getElementById("bgMusic");
 
-// 🔹 Updated countdown to use UTC for mobile compatibility
-const unlockDate = new Date(Date.UTC(new Date().getFullYear(), 11, 31, 10, 15, 0));
+// 🔹 Manila time countdown setup
+const unlockDate = new Date();
+unlockDate.setFullYear(new Date().getFullYear());
+unlockDate.setMonth(11); // December
+unlockDate.setDate(31);  // 31st
+unlockDate.setHours(10);  // 9 AM Manila
+unlockDate.setMinutes(20); // open at 9:52
+unlockDate.setSeconds(0);
+unlockDate.setMilliseconds(0);
+
 let timer = setInterval(updateCountdown, 1000);
 updateCountdown();
 
@@ -515,4 +523,4 @@ function heartsFor(duration) {
 }
 </script>
 </body>
-</html>
+</html
