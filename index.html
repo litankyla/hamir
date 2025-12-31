@@ -251,7 +251,8 @@ const content = document.getElementById("content");
 const countdownEl = document.getElementById("countdown");
 const music = document.getElementById("bgMusic");
 
-const unlockDate = new Date(new Date().getFullYear(), 11, 31, 10, 0, 0);
+// 🔹 Updated countdown to use UTC for mobile compatibility
+const unlockDate = new Date(Date.UTC(new Date().getFullYear(), 11, 31, 11, 25, 0));
 let timer = setInterval(updateCountdown, 1000);
 updateCountdown();
 
@@ -275,6 +276,7 @@ function updateCountdown() {
     String(s).padStart(2,'0');
 }
 
+// 🔹 Everything else unchanged
 function showRejection() {
   content.innerHTML = `
     <h1>I'm sorry, Jamir…</h1>
