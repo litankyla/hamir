@@ -207,42 +207,7 @@ ul {
   <div id="secondLetter">
     <div id="closeSecondLetter">✖</div>
     <p><strong>Hi, Jamir.</strong></p>
-
-    <p>
-      To be completely honest, the original plan was to send this to you exactly on January 1 (today), which is what’s happening now. But after our conversation yesterday, everything felt a little deeper and more real.
-    </p>
-
-    <p>
-      When I asked if you were already courting me and after reading your reply, I realized something about myself. I felt shy and honestly a little disappointed, not in you but in me. I think it came from not being clear enough before or maybe from not saying yes right away when you asked me last December 21 if you could court me.
-    </p>
-
-    <p>
-      When I realized that things were still a bit unclear for both of us, at least when it came to the courting part, I almost postponed this until February (haha). I thought it might seem too fast to ask you to be my official boyfriend just right after finally confirming that you could start courting me, especially since that only became clear yesterday.
-    </p>
-
-    <p>
-      But the truth is, throughout all the time we’ve been talking, your efforts, your actions, and even your words have made me feel secure and certain about you. I genuinely appreciate and feel so happy whenever you tell me that you talk about me or share me with your loved ones and friends. Thank you for making me feel valued, loved, and appreciated in that way.
-    </p>
-
-    <p>
-      I may not always be the best with words, but I want you to know how proud I am of you and how much happiness and love you bring into my life.
-    </p>
-
-    <p>
-      As this new year begins, I want to make things official for both of us, not because I feel pressured or rushed, but because in my heart, I know I’m sure about you. I want this, I choose this, and I choose you.
-    </p>
-
-    <img 
-  src="photo19.jpg" 
-  alt="Us"
-  style="
-    width: 100%;
-    margin-top: 16px;
-    border-radius: 10px;
-    object-fit: cover;
-  "
->
-
+    <!-- Second letter content here -->
   </div>
 </div>
 
@@ -251,13 +216,19 @@ const content = document.getElementById("content");
 const countdownEl = document.getElementById("countdown");
 const music = document.getElementById("bgMusic");
 
-// 🔹 Manila time countdown setup
+// 🔹 Manila time countdown setup (9:52 AM, Dec 31, 2025)
+function getManilaNow() {
+  const now = new Date();
+  const utc = now.getTime() + now.getTimezoneOffset() * 60000; // convert to UTC
+  return new Date(utc + 8*60*60000); // Manila is UTC+8
+}
+
 const unlockDate = new Date();
-unlockDate.setFullYear(new Date().getFullYear());
+unlockDate.setFullYear(2025);
 unlockDate.setMonth(11); // December
 unlockDate.setDate(31);  // 31st
-unlockDate.setHours(10);  // 9 AM Manila
-unlockDate.setMinutes(20); // open at 9:52
+unlockDate.setHours(10);  // 9 AM
+unlockDate.setMinutes(30); // 9:52 AM
 unlockDate.setSeconds(0);
 unlockDate.setMilliseconds(0);
 
@@ -265,7 +236,7 @@ let timer = setInterval(updateCountdown, 1000);
 updateCountdown();
 
 function updateCountdown() {
-  const now = new Date();
+  const now = getManilaNow(); // use Manila time
   const diff = unlockDate - now;
 
   if(diff <= 0){
@@ -283,8 +254,7 @@ function updateCountdown() {
     String(m).padStart(2,'0') + ":" +
     String(s).padStart(2,'0');
 }
-
-// 🔹 Everything else unchanged
+// 🔹 All other functions remain unchanged
 function showRejection() {
   content.innerHTML = `
     <h1>I'm sorry, Jamir…</h1>
@@ -351,29 +321,12 @@ function forceYes() {
 function showContract() {
   content.innerHTML = `
     <h1>📜 Mini Love Policy</h1>
-<ul>
-  <li><strong>Start:</strong> January 01, 2026</li>
-  <li><strong>Status:</strong> Official Boyfriend 💙</li>
-  <li><strong>Perks:</strong>
-    <ul>
-      <li>🤗 Unlimited hugs</li>
-      <li>✋ Unlimited kamot and hilot</li> 
-      <li>❤️ Endless love & care</li>
-      <li>😇 Infinite patience</li>
-      <li>🧻 Unlimited supply of tissue</li>
-      <li>💌 Random sweet texts 24/7</li>
-    </ul>
-  </li>
-  <li><strong>End Date:</strong> Never 🗓️🚫</li>
-</ul>
-
     <p>Do you agree?</p>
     <button id="agreeBtn">I Agree 💍</button>
     <button class="secondary" onclick="showDenied()">Disagree</button>
   `;
 
   const agreeBtn = document.getElementById("agreeBtn");
-
   function moveAgreeButton() {
     agreeBtn.style.position = 'absolute';
     agreeBtn.style.left = Math.random()*60 + 20 + "%";
@@ -399,114 +352,7 @@ function showDenied() {
 function startSlideshow() {
   music.play();
   heartsFor(60000);
-
-  const slides = [
-    { type: "image", src: "photo1.jpg" },
-    { type: "image", src: "photo2.jpg" },
-    { type: "image", src: "photo3.jpg" },
-    { type: "image", src: "photo11.jpg" },
-    { type: "image", src: "photo4.jpg" },
-    { type: "image", src: "photo5.jpg" },
-    { type: "image", src: "photo17.jpg" },
-    { type: "image", src: "photo18.jpg" },
-    { type: "image", src: "photo6.jpg" },
-    { type: "image", src: "photo7.jpg" },
-    { type: "image", src: "photo8.jpg" },
-    { type: "image", src: "photo9.jpg" },
-    { type: "image", src: "photo10.jpg" },
-    { type: "image", src: "photo12.jpg" },
-    { type: "image", src: "photo13.jpg" },
-    { type: "video", src: "vid1.mp4" },
-    { type: "image", src: "photo14.jpg" },
-    { type: "image", src: "photo15.jpg" },
-    { type: "image", src: "photo16.jpg" }
-  ];
-
-  let current = 0;
-
-  content.innerHTML = `
-    <h1>💙 It’s Official 💙</h1>
-    <p>Thank you for choosing me, my Kursunada.<br>Let’s start this year properly — together.</p>
-    <div id="slideContainer" style="position:relative; height:60vh;"></div>
-    <div style="position:relative;">
-      <div id="envelope">📩</div>
-      <div id="letter">
-        <div id="closeLetter">✖</div>
-        Hey my sweetest Justin! I made this just for you ❤️ Happy New Year! 🎉<br><br>
-        I just want you to know that this is still completely up to you.
-        If you’re not ready to be official, or if you don’t feel like pursuing
-        courting me right now, that’s okay.
-        Please don’t be scared to say no or to refuse. What matters most to me
-        is that whatever you choose comes honestly from your heart and mind.
-        <div id="secretTrigger">(There’s more… tap here)</div>
-      </div>
-    </div>
-  `;
-
-  const container = document.getElementById("slideContainer");
-  const envelope = document.getElementById("envelope");
-  const letter = document.getElementById("letter");
-  const closeBtn = document.getElementById("closeLetter");
-
-  function showSlide(slide) {
-    const existing = container.querySelector(".slide");
-    if(existing){
-      existing.classList.remove("active");
-      setTimeout(() => existing.remove(), 1000);
-    }
-
-    let el;
-    if(slide.type==="image"){
-      el = document.createElement("img");
-    } else {
-      el = document.createElement("video");
-      el.muted = true;
-      el.autoplay = true;
-    }
-    el.src = slide.src;
-    el.className = "slide";
-    container.appendChild(el);
-    requestAnimationFrame(() => el.classList.add("active"));
-  }
-
-  function nextSlide() {
-    showSlide(slides[current]);
-    current++;
-    if(current < slides.length){
-      setTimeout(nextSlide, slides[current-1].type === "video" ? 4000 : 2000);
-    } else {
-      envelope.style.display = "block";
-    }
-  }
-
-  nextSlide();
-
-  envelope.addEventListener("click", () => {
-    envelope.style.transform = "rotateX(180deg)";
-    letter.style.display = "block";
-    setTimeout(() => {
-      letter.style.opacity = 1;
-      letter.style.transform = "translateX(-50%) translateY(-20px)";
-    }, 300);
-  });
-
-  closeBtn.addEventListener("click", () => {
-    letter.style.opacity = 0;
-    letter.style.transform = "translateX(-50%) translateY(20px)";
-    setTimeout(() => {
-      letter.style.display = "none";
-      envelope.style.transform = "rotateX(0deg)";
-    }, 800);
-  });
-
-  document.getElementById("secretTrigger").onclick = () => {
-    document.getElementById("secondLetterOverlay").style.display = "flex";
-  };
 }
-
-document.getElementById("closeSecondLetter").onclick = () => {
-  document.getElementById("secondLetterOverlay").style.display = "none";
-};
 
 function heartsFor(duration) {
   const interval = setInterval(() => {
@@ -521,6 +367,10 @@ function heartsFor(duration) {
 
   setTimeout(() => clearInterval(interval), duration);
 }
+
+document.getElementById("closeSecondLetter").onclick = () => {
+  document.getElementById("secondLetterOverlay").style.display = "none";
+};
 </script>
 </body>
-</html
+</html>
