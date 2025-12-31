@@ -251,16 +251,13 @@ const content = document.getElementById("content");
 const countdownEl = document.getElementById("countdown");
 const music = document.getElementById("bgMusic");
 
-// 🔹 Countdown fixed for Manila time
-// Manila = UTC+8, so we subtract 8 hours to get UTC
-const unlockDate = new Date(Date.UTC(new Date().getFullYear(), 11, 31, 9,44, 0)); // 09:38 Manila = 01:38 UTC
+const unlockDate = new Date(new Date().getFullYear(), 11, 31, 10, 0, 0);
 let timer = setInterval(updateCountdown, 1000);
 updateCountdown();
 
 function updateCountdown() {
   const now = new Date();
-  const nowUTC = new Date(now.getTime() + now.getTimezoneOffset() * 60000); // convert device local time to UTC
-  const diff = unlockDate - nowUTC;
+  const diff = unlockDate - now;
 
   if(diff <= 0){
     clearInterval(timer);
@@ -278,7 +275,6 @@ function updateCountdown() {
     String(s).padStart(2,'0');
 }
 
-// 🔹 Everything else unchanged
 function showRejection() {
   content.innerHTML = `
     <h1>I'm sorry, Jamir…</h1>
